@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}  Register {% endblock %}
+{% block body %}
+
+<!-- Breadcrumb Start -->
+<div class="breadcrumb-wrap">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Products</a></li>
+            <li class="breadcrumb-item active">Register</li>
+        </ul>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+
+<!-- Login Start -->
+<div class="login">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6">
+                <form action="{% url 'register' %}" method="POST" class="register-form">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>First Name</label>
+                            <input class="form-control" type="text" placeholder="First Name" name="first_name">
+                        </div>
+                        <div class="col-md-6">
+                            <label>Last Name"</label>
+                            <input class="form-control" type="text" placeholder="Last Name" name="last_name">
+                        </div>
+                        <div class="col-md-6">
+                            <label>E-mail</label>
+                            <input class="form-control" type="email" placeholder="E-mail" name="email">
+                        </div>
+                        <div class="col-md-6">
+                            <label>Mobile No</label>
+                            <input class="form-control" type="text" placeholder="Mobile No" name="mobile_no">
+                        </div>
+                        <div class="col-md-6">
+                            <label>Password</label>
+                            <input class="form-control" type="password" placeholder="Password" name="password">
+                        </div>
+                        <div class="col-md-6">
+                            <label>Retype Password</label>
+                            <input class="form-control" type="password" placeholder="Password" name="re_password">
+                        </div>
+                        <div class="col-md-12 d-flex justify-content-between">
+                            <a href="{% url 'login' %}" class="btn">Login</a>
+                            <button type="submit" class="btn">Submit</button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-6">
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Login End -->
+
+{% endblock %}
