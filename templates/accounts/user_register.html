@@ -7,33 +7,35 @@
 <div class="breadcrumb-wrap">
     <div class="container-fluid">
         <ul class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item"><a href="#">Products</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Accounts</a></li>
             <li class="breadcrumb-item active">Register</li>
         </ul>
     </div>
 </div>
 <!-- Breadcrumb End -->
 
+
 <!-- Login Start -->
 <div class="login">
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-6">
+                <!-- Register Form Start -->
                 <form action="{% url 'register' %}" method="POST" class="register-form">
                     {% csrf_token %}
                     <div class="row">
                         <div class="col-md-6">
                             <label>First Name</label>
-                            <input class="form-control" type="text" placeholder="First Name" name="first_name">
+                            <input class="form-control" type="text" placeholder="First Name" name="first_name" required>
                         </div>
                         <div class="col-md-6">
-                            <label>Last Name"</label>
-                            <input class="form-control" type="text" placeholder="Last Name" name="last_name">
+                            <label>Last Name</label>
+                            <input class="form-control" type="text" placeholder="Last Name" name="last_name" required>
                         </div>
                         <div class="col-md-6">
                             <label>E-mail</label>
-                            <input class="form-control" type="email" placeholder="E-mail" name="email">
+                            <input class="form-control" type="email" placeholder="E-mail" name="email" required>
                         </div>
                         <div class="col-md-6">
                             <label>Mobile No</label>
@@ -41,17 +43,17 @@
                         </div>
                         <div class="col-md-6">
                             <label>Password</label>
-                            <input class="form-control" type="password" placeholder="Password" name="password">
+                            <input class="form-control" type="password" placeholder="Password" name="password" required>
                         </div>
                         <div class="col-md-6">
                             <label>Retype Password</label>
-                            <input class="form-control" type="password" placeholder="Password" name="re_password">
+                            <input class="form-control" type="password" placeholder="Password" name="re_password"
+                                   required>
                         </div>
                         <div class="col-md-12 d-flex justify-content-between">
-                            <a href="{% url 'login' %}" class="btn">Login</a>
-                            <button type="submit" class="btn">Submit</button>
+                            <a href="{% url 'login' %}" class="btn btn-outline-secondary">Login</a>
+                            <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
-
                     </div>
                 </form>
             </div>
