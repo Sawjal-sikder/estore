@@ -2,5 +2,6 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
-    path('', my_account, name="my_account")
+    path('', profileUpdate.as_view(), name='profile_update'),
+
 ]
