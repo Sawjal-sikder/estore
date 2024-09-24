@@ -5,6 +5,7 @@ from django.utils import timezone
 
 class Category(models.Model):
     name = models.CharField(max_length=255)
+    icon = models.CharField(max_length=55, default='fa fa-circle', blank=True, null=True)
     thumbnail = models.ImageField(upload_to='category_thumbnails/', blank=True, null=True)
     slug = models.SlugField(max_length=255, unique=True)
     is_active = models.BooleanField(default=True)
@@ -59,6 +60,8 @@ class Product(models.Model):
     image1 = models.ImageField(upload_to='product_images/', blank=True, null=True)
     image2 = models.ImageField(upload_to='product_images/', blank=True, null=True)
     image3 = models.ImageField(upload_to='product_images/', blank=True, null=True)
+    new_price = models.PositiveIntegerField(default=0, blank=True, null=True)
+    old_price = models.PositiveIntegerField(default=0, blank=True, null=True)
     sku = models.CharField(max_length=100, unique=True)
     size = models.CharField(max_length=2, choices=SIZE_CHOICES, blank=True, null=True)  # Add size choices
     color = models.CharField(max_length=10, choices=COLOR_CHOICES, blank=True, null=True)  # Add color choices

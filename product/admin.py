@@ -6,7 +6,7 @@ from .models import *
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ['name', 'slug', 'is_active', 'created_by', 'updated_by']
+    list_display = ['name', 'slug', 'icon', 'is_active', 'created_by', 'updated_by']
     prepopulated_fields = {'slug': ('name',)}
     ordering = ['-id', ]
 
@@ -32,7 +32,8 @@ class BrandAdmin(admin.ModelAdmin):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['name', 'category', 'brand', 'sku', 'size', 'color', 'slug', 'is_active', 'created_by',
+    list_display = ['name', 'category', 'brand', 'sku', 'new_price', 'old_price', 'size', 'color', 'slug', 'is_active',
+                    'created_by',
                     'updated_by']
     prepopulated_fields = {'slug': ('name',)}
     ordering = ['-id', ]
