@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.db.models import Count
+from django.core.paginator import Paginator
 from .models import *
 
 
@@ -17,7 +18,10 @@ def getShareContext():
 
 def productList(request):
     all_product = Product.objects.filter(is_active=True)
-    context = {'products': all_product}
+    paginator = Paginator(all_product, 10, orphans=1, allow_empty_first_page=True)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    context = {'products': page_obj}
     context.update(getShareContext())  # Merge shared context into the main context
     return render(request, 'product/product-list.html', context)
 
@@ -25,20 +29,22 @@ def productList(request):
 def categoryProduct(request, slug):
     singleCategory = Category.objects.get(slug=slug)
     all_product = Product.objects.filter(is_active=True, category=singleCategory)
-    context = {
-        'products': all_product,
-    }
-    context.update(getShareContext())
+    paginator = Paginator(all_product, 10, orphans=1, allow_empty_first_page=True)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    context = {'products': page_obj}
+    context.update(getShareContext())  # Merge shared context into the main context
     return render(request, 'product/product-list.html', context)
 
 
 def productByBrand(request, slug):
     singleBrand = Brand.objects.get(slug=slug)
     all_product = Product.objects.filter(is_active=True, brand=singleBrand)
-    context = {
-        'products': all_product,
-    }
-    context.update(getShareContext())
+    paginator = Paginator(all_product, 10, orphans=1, allow_empty_first_page=True)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    context = {'products': page_obj}
+    context.update(getShareContext())  # Merge shared context into the main context
     return render(request, 'product/product-list.html', context)
 
 
@@ -48,8 +54,11 @@ def searchProduct(request):
         product = request.GET.get('product', '')
         if product:
             all_product = Product.objects.filter(is_active=True, name__icontains=product)
-    context = {'products': all_product, }
-    context.update(getShareContext())
+    paginator = Paginator(all_product, 10, orphans=1, allow_empty_first_page=True)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    context = {'products': page_obj}
+    context.update(getShareContext())  # Merge shared context into the main context
     return render(request, 'product/product-list.html', context)
 
 
