@@ -67,6 +67,8 @@ class Product(models.Model):
     color = models.CharField(max_length=10, choices=COLOR_CHOICES, blank=True, null=True)  # Add color choices
     slug = models.SlugField(max_length=255, unique=True)
     is_active = models.BooleanField(default=True)
+    is_Newest = models.BooleanField(default=True)
+    is_Popular = models.BooleanField(default=False)
     created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True,
                                    related_name='products_created')
     created_date = models.DateTimeField(default=timezone.now)
