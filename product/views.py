@@ -64,7 +64,7 @@ def searchProduct(request):
     paginator = Paginator(all_product, 10, orphans=1, allow_empty_first_page=True)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
-    context = {'products': page_obj}
+    context = {'products': page_obj, 'product': product}
     context.update(getShareContext())  # Merge shared context into the main context
     return render(request, 'product/product-list.html', context)
 

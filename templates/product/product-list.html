@@ -26,7 +26,7 @@
                                 <div class="col-md-4">
                                     <div class="product-search">
                                         <form method="GET" action="{% url 'search' %}">
-                                            <input type="text" value="" placeholder="Search" name="product">
+                                            <input type="text" value="{{ product }}" placeholder="Search" name="product">
                                             <button type="submit"><i class="fa fa-search"></i></button>
                                         </form>
                                     </div>
@@ -34,7 +34,9 @@
                                 <div class="col-md-4">
                                     <div class="product-short">
                                         <div class="dropdown">
-                                            <div class="dropdown-toggle" data-toggle="dropdown">{% if sort_by %} {{ sort_by }} {% else %} Product sort by {% endif %}</div>
+                                            <div class="dropdown-toggle" data-toggle="dropdown">{% if sort_by %}
+                                                {{sort_by}} {% else %} Product sort by {% endif %}
+                                            </div>
                                             <div class="dropdown-menu dropdown-menu-right">
                                                 <a href="?sort=newest"
                                                    class="dropdown-item">newest</a>
@@ -113,9 +115,10 @@
                 </div>
 
                 <!-- Pagination Start -->
+                {% if products.paginator.num_pages > 1 %}
                 <div class="col-md-12">
                     <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-center">
+                        <ul class="pagination justify-content-left">
                             <!-- Previous Page Link -->
                             {% if products.has_previous %}
                             <li class="page-item">
@@ -158,8 +161,13 @@
                             <li class="page-item disabled"><span class="page-link">...</span></li>
                             {% endif %}
                             <li class="page-item">
-                                <a class="page-link" href="?page={{ products.paginator.num_pages }}"> {{
-                                    products.paginator.num_pages }}</a>
+                                <<<<<<< Updated upstream
+                                <a class="page-link" href="?page={{ products.paginator.num_pages }}">
+                                    {{products.paginator.num_pages}}</a>
+                                =======
+                                <a class="page-link" href="?page={{ products.paginator.num_pages }}">
+                                    {{products.paginator.num_pages}}</a>
+                                >>>>>>> Stashed changes
                             </li>
                             {% endif %}
 
@@ -176,7 +184,7 @@
                         </ul>
                     </nav>
                 </div>
-
+                {% endif %}
 
                 <!-- Pagination Start -->
             </div>
