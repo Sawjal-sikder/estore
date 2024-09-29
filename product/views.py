@@ -16,30 +16,19 @@ def getShareContext():
     }
 
 
-def sortProduct(request):
-    sort_by = request.GET.get('sort', 'newest')  # Default to 'newest' if no parameter is provided
-
-    if sort_by == 'popular':
-        products = Product.objects.filter(is_Popular=True).order_by('-updated_by')
-    elif sort_by == 'most_sale':
-        products = Product.objects.filter(is_Featured=True).order_by('-updated_by')
-    else:
-        products = Product.objects.filter(is_active=True).order_by('-updated_by')
-
-    context = {
-        'products': products,
-        'sort_by': sort_by
-    }
-    context.update(getShareContext())  # Adding shared context
-    return render(request, 'product/product-list.html', context)
-
-
 def productList(request):
-    all_product = Product.objects.filter(is_active=True)
-    paginator = Paginator(all_product, 10, orphans=1, allow_empty_first_page=True)
-    page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page_number)
-    context = {'products': page_obj}
+    sort_by = request.GET.get('sort', 'Product sort by')  # Default to 'newest' if no parameter is provided
+
+    if sort_by == 'newest':
+        products = Product.objects.filter(is_active=True).order_by('created_date')[:9]
+    elif sort_by == 'popular':
+        products = Product.objects.filter(is_Popular=True)
+    else:
+        all_product = Product.objects.filter(is_active=True)
+        paginator = Paginator(all_product, 10, orphans=1, allow_empty_first_page=True)
+        page_number = request.GET.get("page")
+        products = paginator.get_page(page_number)
+    context = {'products': products, 'sort_by': sort_by}
     context.update(getShareContext())  # Merge shared context into the main context
     return render(request, 'product/product-list.html', context)
 
