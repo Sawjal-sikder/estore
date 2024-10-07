@@ -71,7 +71,11 @@ def searchProduct(request):
 
 def productDetails(request, slug):
     oneProduct = Product.objects.get(slug=slug)
+    categoryOne = oneProduct.category
+    relatedproduct = categoryOne.products.all()
     context = {
         "product": oneProduct,
+        "relatedproduct": relatedproduct,
     }
+    context.update(getShareContext())
     return render(request, 'product/product-detail.html', context)
