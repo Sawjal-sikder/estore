@@ -16,6 +16,17 @@ def getShareContext():
     }
 
 
+def productByBrand(request, slug):
+    singleBrand = Brand.objects.get(slug=slug)
+    all_product = Product.objects.filter(is_active=True, brand=singleBrand)
+    paginator = Paginator(all_product, 10, orphans=1, allow_empty_first_page=True)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    context = {'products': page_obj}
+    context.update(getShareContext())  # Merge shared context into the main context
+    return render(request, 'product/product-list.html', context)
+
+
 def productList(request):
     sort_by = request.GET.get('sort', 'Product sort by')  # Default to 'newest' if no parameter is provided
 
@@ -36,17 +47,6 @@ def productList(request):
 def categoryProduct(request, slug):
     singleCategory = Category.objects.get(slug=slug)
     all_product = Product.objects.filter(is_active=True, category=singleCategory)
-    paginator = Paginator(all_product, 10, orphans=1, allow_empty_first_page=True)
-    page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page_number)
-    context = {'products': page_obj}
-    context.update(getShareContext())  # Merge shared context into the main context
-    return render(request, 'product/product-list.html', context)
-
-
-def productByBrand(request, slug):
-    singleBrand = Brand.objects.get(slug=slug)
-    all_product = Product.objects.filter(is_active=True, brand=singleBrand)
     paginator = Paginator(all_product, 10, orphans=1, allow_empty_first_page=True)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
